@@ -13,7 +13,7 @@ typedef struct
 }MYWaveHeader;
 #pragma pack()
 
-const char *WAV_FILE="20171211news.wav";
+const char *WAV_FILE="20171212.wav";
 
 int print_mem(char *buf, int size)
 {
@@ -90,22 +90,22 @@ int parse_and_split_audio(FILE *nfh, int16_t *buf, size_t size, int *split_file_
         if ( abs(buf[i]) < 2000 ) {
             distance++;
         } else {
-            if (distance >= 0.3 * 16000) {
+            if (distance >= 0.2 * 16000) {
                 // It's audio start or end
                 if (nfh == NULL) {
                     snprintf(n_file_name, 127, "sample_%04d.pcm", *split_file_index);
                     (*split_file_index)++;
                     nfh = fopen(n_file_name, "wb");
-                    fwrite((void *)&(buf[i-500]), 1, 2* 500, nfh);
+                    fwrite((void *)&(buf[i-200]), 1, 2* 200, nfh);
                 } else {
-                    fwrite((void *)&(buf[i-distance]), 1, 2 * 500, nfh);
+                    fwrite((void *)&(buf[i-distance]), 1, 2 * 200, nfh);
                     fclose(nfh);
                     change_file_to_wav(n_file_name, wave_header);
                     nfh = NULL;
                     snprintf(n_file_name, 127, "sample_%04d.pcm", *split_file_index);
                     (*split_file_index)++;
                     nfh = fopen(n_file_name, "wb");
-                    fwrite((void *)&(buf[i-500]), 1, 2  * 500, nfh);
+                    fwrite((void *)&(buf[i-200]), 1, 2  * 200, nfh);
                 }
                 distance = 0;
             } else {
