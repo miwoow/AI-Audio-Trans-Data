@@ -13,7 +13,7 @@ typedef struct
 }MYWaveHeader;
 #pragma pack()
 
-const char *WAV_FILE="20171212.wav";
+const char *WAV_FILE="201712122.wav";
 
 int print_mem(char *buf, int size)
 {
